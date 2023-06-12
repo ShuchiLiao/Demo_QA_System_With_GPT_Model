@@ -17,7 +17,6 @@ st.title('Demo Q&A system')
 
 ''' Please note I already set a 10 dollar limit for all API calls!'''
 openai.api_key = os.environ["OPENAI_API_KEY"]
-''' Please note I already set a 10 dollar limit for all API calls!'''
 
 
 GPT_MODEL = "gpt-3.5-turbo"
@@ -25,7 +24,7 @@ GPT_MODEL = "gpt-3.5-turbo"
 # More accurate result may be achieved by using gpt-4 model but costs more
 
 '''I limited the token numbers to 2048, which saves me money.'''
-MAX_TOKENS = 2048 # GPT documentation says per request no more than 4096-500 tokens.
+MAX_TOKENS = 2048  # GPT documentation says per request no more than 4096-500 tokens.
 
 HEADER = 'Use the provided context to answer the question as truthfully as possible and if the answer is not ' \
          'contained within the text below, say "I could not find an answer. It seems not a question about Sam Altman."'
@@ -95,7 +94,7 @@ contexts = clean_text_file('./Sam Altman.txt', 28)
 # print(num_tokens(contexts))
 # Since the total tokens for the context is less than 1600, we don't need to chunk the text into smaller pieces
 
-# msg = construct_prompt('what is him', contexts)
+
 st.write("Ask questions about Sam Altman")
 question = st.text_input("Enter your question:")
 if st.button("Get Answer"):

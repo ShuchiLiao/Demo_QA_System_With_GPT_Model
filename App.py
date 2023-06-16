@@ -25,7 +25,7 @@ GPT_MODEL = "gpt-3.5-turbo"
 # More accurate result may be achieved by using gpt-4 model but costs more
 
 # '''I limited the token numbers to 2048, which saves me money.'''
-MAX_TOKENS = 2048  # GPT documentation says per request no more than 4096-500 tokens.
+MAX_TOKENS = 4000  # GPT documentation says per request no more than 4096-500 tokens.
 
 HEADER = 'Use the provided context to answer the question as truthfully as possible and if the answer is not ' \
          'contained within the text below, say "I could not find an answer. It seems not a question about Sam Altman."'
@@ -93,15 +93,15 @@ def answer(query, context, header=HEADER, token_budget=MAX_TOKENS, model=GPT_MOD
 # This line should only run once when loading the app for the first time due to st.cache_data
 # contexts = clean_text_file('./Sam Altman.txt', 28)
 contexts = clean_text_file('./xinhuabio.txt', 1)
-# print(num_tokens(contexts))
+print(num_tokens(contexts))
 # Since the total tokens for the context is less than 1600, we don't need to chunk the text into smaller pieces
 
 
-st.write("Ask questions about 信华生物2022年融资")
-question = st.text_input("Enter your question:")
-if st.button("Get Answer"):
-    ans = answer(question, contexts)
-    st.write("Answer:", ans)
+# st.write("Ask questions about 信华生物2022年融资")
+# question = st.text_input("Enter your question:")
+# if st.button("Get Answer"):
+#     ans = answer(question, contexts)
+#     st.write("Answer:", ans)
 
 
 

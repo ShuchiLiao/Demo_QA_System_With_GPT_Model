@@ -28,7 +28,7 @@ GPT_MODEL = "gpt-3.5-turbo"
 MAX_TOKENS = 4000  # GPT documentation says per request no more than 4096-500 tokens.
 
 HEADER = 'Use the provided context to answer the question as truthfully as possible and if the answer is not ' \
-         'contained within the text below, say "I could not find an answer. It seems not a question about Sam Altman."'
+         'contained within the text below, say "I could not find an answer. It seems not a question about 信华生物."'
 
 
 @st.cache_data

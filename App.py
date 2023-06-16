@@ -97,11 +97,11 @@ print(num_tokens(contexts))
 # Since the total tokens for the context is less than 1600, we don't need to chunk the text into smaller pieces
 
 
-# st.write("Ask questions about 信华生物2022年融资")
-# question = st.text_input("Enter your question:")
-# if st.button("Get Answer"):
-#     ans = answer(question, contexts)
-#     st.write("Answer:", ans)
+st.write("Ask questions about 信华生物2022年融资")
+question = st.text_input("Enter your question:")
+if st.button("Get Answer"):
+    ans = answer(question, contexts)
+    st.write("Answer:", ans)
 
 
 

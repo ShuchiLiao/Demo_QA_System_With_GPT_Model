@@ -15,7 +15,7 @@ import streamlit as st
 
 st.title('Demo Q&A system')
 
-'''基于Chatgpt，但是特别加入了关于信华生物融资的语料，现在Chatgpt也能回答相关问题了'''
+'''Based on GPT 3.5 and include new info about Sam Altman'''
 # ''' Please note I already set a 10 dollar limit for all API calls!'''
 openai.api_key = os.environ["OPENAI_API_KEY"]
 
@@ -28,7 +28,7 @@ GPT_MODEL = "gpt-3.5-turbo"
 MAX_TOKENS = 4000  # GPT documentation says per request no more than 4096-500 tokens.
 
 HEADER = 'Use the provided context to answer the question as truthfully as possible and if the answer is not ' \
-         'contained within the text below, say "I could not find an answer. It seems not a question about 信华生物."'
+         'contained within the text below, say "I could not find an answer. It seems not a question about Sam Altman."'
 
 
 @st.cache_data
@@ -92,12 +92,12 @@ def answer(query, context, header=HEADER, token_budget=MAX_TOKENS, model=GPT_MOD
 
 # This line should only run once when loading the app for the first time due to st.cache_data
 # contexts = clean_text_file('./Sam Altman.txt', 28)
-contexts = clean_text_file('./xinhuabio.txt', 1)
+contexts = clean_text_file('./Sam Altman.txt', 1)
 print(num_tokens(contexts))
 # Since the total tokens for the context is less than 1600, we don't need to chunk the text into smaller pieces
 
 
-st.write("Ask questions about 信华生物2022年融资")
+st.write("Ask questions about Sam Altman based on provided text")
 question = st.text_input("Enter your question:")
 if st.button("Get Answer"):
     ans = answer(question, contexts)

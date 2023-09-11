@@ -15,7 +15,7 @@ import streamlit as st
 
 st.title('Demo Q&A system')
 
-'''Based on GPT 3.5 and include new info about Sam Altman'''
+'''Based on GPT 3.5'''
 # ''' Please note I already set a 10 dollar limit for all API calls!'''
 openai.api_key = os.environ["OPENAI_API_KEY"]
 
@@ -25,10 +25,11 @@ GPT_MODEL = "gpt-3.5-turbo"
 # More accurate result may be achieved by using gpt-4 model but costs more
 
 # '''I limited the token numbers to 2048, which saves me money.'''
-MAX_TOKENS = 4000  # GPT documentation says per request no more than 4096-500 tokens.
+MAX_TOKENS = 4096  # GPT documentation says per request no more than 4096-500 tokens.
 
-HEADER = 'Use the provided context to answer the question as truthfully as possible and if the answer is not ' \
-         'contained within the text below, say "I could not find an answer. It seems not a question about Sam Altman."'
+# HEADER = 'Use the provided context to answer the question as truthfully as possible and if the answer is not ' \
+#          'contained within the text below, say "I could not find an answer. It seems not a question about Sam Altman."'
+HEADER = 'Answer the question as truthfully as possible'
 
 
 @st.cache_data
@@ -62,11 +63,14 @@ def num_tokens(context, model= GPT_MODEL):
 
 def construct_prompt(query, context, header=HEADER, token_budget = MAX_TOKENS):
     """ Construct a prompt with user question and provided context"""
-    message = header + f'\n\nWikipedia article section:\n"""\n{context}\n"""'
-    qeustion = f"\n\nQuestion: {query}"
-    prompt = message + qeustion
+    # message = header + f'\n\nWikipedia article section:\n"""\n{context}\n"""'
+    """ Construct a prompt with user question"""
+    message = header
+    question = f"\n\nQuestion: {query}"
 
-    # I limited the token numbers to 2048, which saves me money and means you cannot ask a very long question.
+    prompt = message + question
+
+    # I limited the token numbers to 4096, which saves me money and means you cannot ask a very long question.
     if num_tokens(prompt) > token_budget:
         raise ValueError('Token numbers exceed maximum tokens allowed')
     return prompt
@@ -78,7 +82,7 @@ def answer(query, context, header=HEADER, token_budget=MAX_TOKENS, model=GPT_MOD
     if print_message:
         print(prompt)
     messages = [
-        {"role": "system", "content": "You answer questions about Sam Altman."},
+        {"role": "system", "content": "You answer questions."},
         {"role": "user", "content": prompt},
     ]
 
@@ -97,7 +101,7 @@ print(num_tokens(contexts))
 # Since the total tokens for the context is less than 1600, we don't need to chunk the text into smaller pieces
 
 
-st.write("Ask questions about Sam Altman based on provided text")
+st.write("Ask questions")
 question = st.text_input("Enter your question:")
 if st.button("Get Answer"):
     ans = answer(question, contexts)
